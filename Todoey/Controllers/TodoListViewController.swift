@@ -32,16 +32,16 @@ class TodoListViewController: SwipeTableViewController {
     override func viewWillAppear(_ animated: Bool) {
         
         
-        guard let colorHex = selectedCategory?.color else {fatalError()}
+        let colorHex = "01122D"
         
         title = selectedCategory?.name
         
         updateNavBar(withHexCode: colorHex)
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-     updateNavBar(withHexCode: "1D9BF6")
-    }
+//    override func viewWillDisappear(_ animated: Bool) {
+//     updateNavBar(withHexCode: "004F78")
+//    }
     
     //MARK: - Nav Bar Setup Methods
     
@@ -65,13 +65,14 @@ class TodoListViewController: SwipeTableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = super.tableView(tableView, cellForRowAt: indexPath)
-
+        
+        cell.textLabel?.font = UIFont(name: "Helvetica Neue", size: 18.0)
         
         if let item = todoItems?[indexPath.row] {
         
         cell.textLabel?.text = item.title
             
-            if let color = UIColor(hexString: selectedCategory!.color)?.darken(byPercentage: CGFloat(indexPath.row)/CGFloat(todoItems!.count)) {
+            if let color = UIColor(hexString: selectedCategory!.color)?.lighten(byPercentage: CGFloat(indexPath.row)/CGFloat(todoItems!.count)) {
                 cell.backgroundColor = color
                cell.textLabel?.textColor =  ContrastColorOf(color, returnFlat: true)
             }
